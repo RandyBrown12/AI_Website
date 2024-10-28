@@ -1,15 +1,21 @@
 import { Box } from '@mui/material';
 
-const Chatbox = () => {
+interface ChatboxProps {
+    isSidebarShown: boolean;
+}
+
+const Chatbox = ({isSidebarShown} : ChatboxProps) => {
     return ( 
         <Box sx={{
-            width: '70%',
+            width: '87%',
             alignItems: 'center',
-            justifyContent: 'center',
-            margin: 'auto',
+            display: 'flex',
+            justifyContent: 'flex-end',
+            marginTop: '5%',
+            marginLeft: isSidebarShown ? "10%" : "0%",
         }}>
             {/* Add UI here */}
-            Hello Content
+            Hello Test
         </Box>
     );
 }

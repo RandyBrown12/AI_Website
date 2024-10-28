@@ -8,19 +8,17 @@ function App() {
   const [isSidebarShown, setIsSidebarShown] = useState(false)
 
   return (
-      <Box sx={{
-        display: 'flex'
-      }}>
+      <>
         <Sidebar 
           isSidebarShown={isSidebarShown} 
           showSidebar={() => setIsSidebarShown(!isSidebarShown)}
           />
-        <Chatbox />
+        <Chatbox isSidebarShown={isSidebarShown}/>
         <Textbar 
           isSidebarShown={isSidebarShown}
           showSidebar={() => setIsSidebarShown(!isSidebarShown)}
           />
-      </Box>
+      </>
   )
 }
 
