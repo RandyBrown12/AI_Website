@@ -24,6 +24,7 @@ export const Textbar = ({ isSidebarShown, showSidebar } : TextbarProps) => {
 
     return (
             <Box sx={{
+                backgroundColor: 'white',
                 width: '70%',
                 display: 'flex',
                 alignItems: 'center',
@@ -32,9 +33,10 @@ export const Textbar = ({ isSidebarShown, showSidebar } : TextbarProps) => {
                 border: '1px solid black',
                 borderRadius: '25px',
                 position: 'absolute',
-                bottom: '15px',
+                bottom: '30px',
                 left: '15%',
-                marginLeft: isSidebarShown ? "10%" : "0%"
+                marginLeft: isSidebarShown ? "10%" : "0%",
+                zIndex: 1,
                 }}>
                 <HistoryIcon sx={{paddingRight: '10px' }} onClick={showSidebar} />
                 <AttachFileIcon sx={{paddingRight: '10px' }} onClick={handleFileSubmit} />
