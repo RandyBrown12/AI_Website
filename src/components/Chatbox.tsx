@@ -1,25 +1,10 @@
 import { Box } from '@mui/material';
 import { Textbar } from './Textbar';
+import { ChatboxProps } from './interfaces';
 
-interface ChatboxProps {
-    isSidebarShown: boolean;
-    showSidebar: () => void;
-}
 
-let chat = [
-    {sender: "User", message: "Hello there!"},
-    {sender: "Bot", message: "How are you?"},
-    {sender: "User", message: "I am fine, thank you!"},
-    {self: "Bot", message: "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"},
-];
+const Chatbox = ({isSidebarShown, showSidebar, chatData, currentChatId, setCurrentChatId, setUserData, userData} : ChatboxProps) => {
 
-chat = [
-    ...chat,
-    ...chat,
-    ...chat,
-];
-
-const Chatbox = ({isSidebarShown, showSidebar} : ChatboxProps) => {
     return ( 
         <Box sx={{
             width: '75%',
@@ -29,28 +14,33 @@ const Chatbox = ({isSidebarShown, showSidebar} : ChatboxProps) => {
             maxHeight: '87.5vh',
             overflowY: 'auto',
         }}>
-            {chat.map(chat => (
+            {chatData && chatData.chat.map(message => (
                 <Box sx={{
                     display: 'flex',
-                    justifyContent: chat.sender === "User" ? 'flex-end' : 'flex-start',
+                    justifyContent: message.sender === "User" ? 'flex-end' : 'flex-start',
                     padding: '10px',
                     flex: '1',
                 }}>
                     <Box sx= {{
-                        backgroundColor: chat.sender === "User" ? '#f0f0f0' : '#ffffff',
+                        backgroundColor: message.sender === "User" ? '#f0f0f0' : '#ffffff',
                         borderRadius: '25px',
                         padding: '16px',
                         maxWidth: '60%',
                         wordWrap: 'break-word',
                         whiteSpace: 'pre-wrap',
                     }}>
-                        {chat.message} 
+                        {message.message} 
                     </Box>
                 </Box>
             ))}
             <Textbar 
                 isSidebarShown={isSidebarShown}
                 showSidebar={showSidebar}
+                userData={userData}
+                chatData={chatData}
+                setUserData={setUserData}
+                currentChatId={currentChatId}
+                setCurrentChatId={setCurrentChatId}
                 />
             </Box>
     );

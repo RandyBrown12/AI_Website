@@ -3,19 +3,56 @@ import AttachFileIcon from '@mui/icons-material/AttachFile'
 import SendIcon from '@mui/icons-material/Send';
 import HistoryIcon from '@mui/icons-material/History';
 import { useRef } from "react";
+import { v4 as uuidv4 } from 'uuid';
+import { TextbarProps, Data } from "./interfaces";
 
-interface TextbarProps {
-    isSidebarShown: boolean;
-    showSidebar: () => void;
-}
-
-export const Textbar = ({ isSidebarShown, showSidebar } : TextbarProps) => {
+export const Textbar = ({ isSidebarShown, showSidebar, currentChatId, setCurrentChatId, userData, setUserData} : TextbarProps) => {
 
     const inputRef = useRef<HTMLTextAreaElement>(null);
 
-    const handleSubmit = ()  => {
-        alert(`Message: ${inputRef.current?.value}`)
-        inputRef.current!.value = ''
+    const handleSubmit = () => {
+        const inputValue = inputRef.current?.value;
+        if(!inputValue) return;
+
+        const dateFormat = new Date().toLocaleString('en-US', {
+            month: 'short',
+            day: 'numeric',
+            year: 'numeric'
+        });
+
+        let newChatInformation = null;
+        if(!currentChatId) {
+            let newUID = uuidv4();
+            newChatInformation = [...userData, {
+                id: newUID,
+                title: newUID,
+                timestamp: dateFormat,
+                chat: [
+                    {
+                        sender: 'User',
+                        message: inputRef.current!.value
+                    }
+                ]
+                }]
+            setCurrentChatId(newUID);
+        } else {
+            newChatInformation = userData.map((data: Data) => {
+                if(data.id === currentChatId) {
+                    return {
+                        ...data,
+                        chat: [...data.chat, {
+                            sender: 'User',
+                            message: inputRef.current!.value
+                        }]
+                    }
+                }
+                return data;
+            })
+        }
+        localStorage.setItem('db', JSON.stringify(newChatInformation));
+        setUserData(newChatInformation);
+        
+        inputRef.current!.value = '';
     }
 
     const handleFileSubmit = () => {
@@ -51,8 +88,9 @@ export const Textbar = ({ isSidebarShown, showSidebar } : TextbarProps) => {
                     paddingBottom: '10px',
                     resize: 'none',
                     border: 'none',
-                    outline: 'none'
+                    outline: 'none',
                 }}
+                maxLength={1000}
                 />
                 <SendIcon sx={{paddingLeft: '10px' }} onClick={handleSubmit}/>
         </Box>

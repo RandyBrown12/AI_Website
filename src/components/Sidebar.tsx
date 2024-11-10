@@ -1,16 +1,24 @@
 import { Drawer, List, ListItem, ListItemText, Typography } from '@mui/material';
+import { SidebarProps, Data } from './interfaces';
+import { IconButton } from '@mui/material';
+import DeleteIcon from '@mui/icons-material/Delete';
+import MessageIcon from '@mui/icons-material/Message';
 
-const historyItems = [
-  { id: 1, title: 'Hello World!', timestamp: '10:30 AM' },
-  // Add more history items here
-];
+export const Sidebar = ({isSidebarShown, showSidebar, userData, setUserData, currentChatId, setCurrentChatId}: SidebarProps) => {
+  
+  const handleDelete = (id: string) => {
+  
+    if(id === currentChatId) {
+      setCurrentChatId('');
+    }
+      const filteredData = userData.filter((data: Data) => data.id !== id);
+      localStorage.setItem('db', JSON.stringify(filteredData));
+      setUserData(filteredData);
+  }
 
-interface SidebarProps {
-  isSidebarShown: boolean;
-  showSidebar: () => void;
-}
-
-export const Sidebar = ({isSidebarShown, showSidebar}: SidebarProps) => {
+  const handleClearChat = () => {
+    setCurrentChatId('');
+  }
 
   return (
     <Drawer
@@ -36,11 +44,28 @@ export const Sidebar = ({isSidebarShown, showSidebar}: SidebarProps) => {
           AI History
         </Typography>
         <List>
-          {historyItems.map((item) => (
-            <ListItem key={item.id}>
+          <ListItem
+            secondaryAction={
+              <IconButton edge="end" aria-label="delete" onClick={() => handleClearChat()}>
+                <MessageIcon />
+              </IconButton>
+            }>
+            <ListItemText
+              primary="Create a new chat: "
+            />
+          </ListItem>
+          {userData && userData.map((item: Data) => (
+            <ListItem
+              key={item.id}
+              onClick = {() => setCurrentChatId(item.id)}
+              secondaryAction={
+                <IconButton edge="end" aria-label="delete" onClick={() => handleDelete(item.id)}>
+                  <DeleteIcon />
+                </IconButton>
+              }>
               <ListItemText
                 primary={item.title}
-                secondary={item.timestamp}
+                secondary={`Created on: ${item.timestamp} `}
               />
             </ListItem>
           ))}

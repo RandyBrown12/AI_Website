@@ -1,0 +1,20 @@
+{
+    "currentId": 0,
+    "Data": [
+        {
+            "id": 1,
+            "title": "Hello World",
+            "time": "2021-01-01",
+            "chat": [
+                {
+                    "sender": "user",
+                    "message": "Hello World!"
+                },
+                {
+                    "sender": "bot",
+                    "message": "Hello!"
+                }
+            ]
+        }
+    ]
+}
