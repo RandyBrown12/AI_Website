@@ -5,10 +5,10 @@ import { Data } from './components/interfaces';
 
 function App() {
   const [isSidebarShown, setIsSidebarShown] = useState<boolean>(false);
-  const [currentChatId, setCurrentChatId] = useState<string>('');
-  const [userData, setUserData] = useState<Data[]>(JSON.parse(localStorage.getItem('db') || '[]'));
+  const [currentChatId, setCurrentChatId] = useState<any>('');
+  const [userData, setUserData] = useState<Data[]>(() => JSON.parse(localStorage.getItem('db') || '[]'));
   const [chatData, setChatData] = useState<Data | null>(null);
-  
+
   useEffect(() => {
     const chat = userData.find((item: Data) => item.id === currentChatId)!;
     setChatData(chat);

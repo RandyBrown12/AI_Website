@@ -4,17 +4,12 @@
   * [X] Configure send icon that accepts given prompt.
 * [X] Create a history for users to access.
 * [ ] Fill out text later.
-* [ ] Create a sidebar.
+* [X] Create a sidebar.
 
-  * [ ] Create a new chat:
-  * [ ] Create texts that change
-* [ ] Bug: There is an error with currentChatId that changes values whenever a user clicks on the sidebar.
+  * [X] Create a new chat:
+  * [X] Create texts that change
 
 ## Notes
-
-### React: Batch Calling
-
-* React will batch all useState changes in a function causing them to not update in order. This can be prevented using setTimeout.
 
 ### Data
 

@@ -1,9 +1,9 @@
-export interface Chat {
+export type Chat = {
     sender: string;
     message: string;
 }
 
-export interface ChatboxProps {
+export type ChatboxProps = {
     isSidebarShown: boolean;
     showSidebar: () => void;
     chatData: Data | null;
@@ -13,14 +13,14 @@ export interface ChatboxProps {
     setCurrentChatId: (id: string) => void;
 }
 
-export interface Data {
+export type Data = {
    id: string; 
    title: string;
    timestamp: string;
    chat: Chat[];
 }
 
-export interface SidebarProps {
+export type SidebarProps = {
     isSidebarShown: boolean;
     showSidebar: () => void;
     userData: Data[];
@@ -29,12 +29,12 @@ export interface SidebarProps {
     setCurrentChatId: (id: string) => void;
 }
 
-export interface UserData {
+export type UserData = {
     currentChatId: string;
     data: Data[];
 }
 
-export interface TextbarProps {
+export type TextbarProps = {
     isSidebarShown: boolean;
     showSidebar: () => void;
     setCurrentChatId: (id: string) => void;
@@ -42,4 +42,8 @@ export interface TextbarProps {
     userData: Data[];
     chatData: Data | null;
     setUserData: (data: Data[]) => void;
+}
+
+export type SlotProps = {
+    isSidebarShown: boolean;
 }

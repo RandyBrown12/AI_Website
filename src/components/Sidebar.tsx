@@ -7,13 +7,14 @@ import MessageIcon from '@mui/icons-material/Message';
 export const Sidebar = ({isSidebarShown, showSidebar, userData, setUserData, currentChatId, setCurrentChatId}: SidebarProps) => {
   
   const handleDelete = (id: string) => {
-  
+    
     if(id === currentChatId) {
-      setCurrentChatId('');
+      setCurrentChatId("");
     }
-      const filteredData = userData.filter((data: Data) => data.id !== id);
-      localStorage.setItem('db', JSON.stringify(filteredData));
-      setUserData(filteredData);
+
+    const filteredData = userData.filter((data: Data) => data.id !== id);
+    localStorage.setItem('db', JSON.stringify(filteredData));
+    setUserData(filteredData);
   }
 
   const handleClearChat = () => {
@@ -57,7 +58,6 @@ export const Sidebar = ({isSidebarShown, showSidebar, userData, setUserData, cur
           {userData && userData.map((item: Data) => (
             <ListItem
               key={item.id}
-              onClick = {() => setCurrentChatId(item.id)}
               secondaryAction={
                 <IconButton edge="end" aria-label="delete" onClick={() => handleDelete(item.id)}>
                   <DeleteIcon />
@@ -65,6 +65,7 @@ export const Sidebar = ({isSidebarShown, showSidebar, userData, setUserData, cur
               }>
               <ListItemText
                 primary={item.title}
+                onClick = {() => setCurrentChatId(item.id)}
                 secondary={`Created on: ${item.timestamp} `}
               />
             </ListItem>
