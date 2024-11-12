@@ -1,14 +1,16 @@
-import { TextareaAutosize, Box } from "@mui/material";
+import { TextareaAutosize, Box, Stack, IconButton } from "@mui/material";
 import AttachFileIcon from '@mui/icons-material/AttachFile'
 import SendIcon from '@mui/icons-material/Send';
 import HistoryIcon from '@mui/icons-material/History';
-import { useRef } from "react";
+import CloseIcon from '@mui/icons-material/Close';
+import { useRef, useState } from "react";
 import { v4 as uuidv4 } from 'uuid';
 import { TextbarProps, Data } from "./interfaces";
 
 export const Textbar = ({ isSidebarShown, showSidebar, currentChatId, setCurrentChatId, userData, setUserData} : TextbarProps) => {
 
     const inputRef = useRef<HTMLTextAreaElement>(null);
+    const [preview, setPreview] = useState<string>('');
 
     const handleSubmit = () => {
         const inputValue = inputRef.current?.value;
@@ -55,28 +57,85 @@ export const Textbar = ({ isSidebarShown, showSidebar, currentChatId, setCurrent
         inputRef.current!.value = '';
     }
 
-    const handleFileSubmit = () => {
-        alert('File sent')
+    const handleImageSubmit = (event : React.ChangeEvent<HTMLInputElement>) => {
+        const file = event.target.files![0];
+        if (file) {
+            setPreview(URL.createObjectURL(file));
+        }
+    }
+
+    const handleDeleteImage = () => {
+        setPreview('');
     }
 
     return (
+        <Box sx={{
+            backgroundColor: 'white',
+            width: '70%',
+            display: 'flex',
+            flexDirection: 'column',
+            padding: '10px',
+            border: '1px solid black',
+            borderRadius: '25px',
+            position: 'absolute',
+            bottom: '30px',
+            left: '15%',
+            marginLeft: isSidebarShown ? "10%" : "0%",
+            zIndex: 1,
+            }}
+        >
+            <Box>
+                {preview && 
+                        <>
+                            <img src={preview}
+                            alt="Preview"
+                            style={{ 
+                                width: '50px', 
+                                height: '50px', 
+                                zIndex: 0, 
+                                backgroundSize: 'cover',
+                                border: '1px solid black',
+                            }}
+                            />
+                            <IconButton sx= {{
+                                position: 'absolute',
+                                left: '53px',
+                                top: '5px',
+                                padding: '0px',
+                                zIndex: 1,    
+                                backgroundColor: 'red',
+                                border: '1px solid black',
+                                "& .MuiSvgIcon-root": {
+                                    fontSize: '15px',
+                                },
+                                "&&:hover": {
+                                    backgroundColor: 'red',
+                                }
+                            }}
+                            size="small"
+                            onClick={handleDeleteImage}>
+                                <CloseIcon />
+                            </IconButton>
+                        </>
+                }
+            </Box>
             <Box sx={{
-                backgroundColor: 'white',
-                width: '70%',
                 display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                padding: '10px',
-                border: '1px solid black',
-                borderRadius: '25px',
-                position: 'absolute',
-                bottom: '30px',
-                left: '15%',
-                marginLeft: isSidebarShown ? "10%" : "0%",
-                zIndex: 1,
+                alignItems: 'center'
                 }}>
-                <HistoryIcon sx={{paddingRight: '10px' }} onClick={showSidebar} />
-                <AttachFileIcon sx={{paddingRight: '10px' }} onClick={handleFileSubmit} />
+                <HistoryIcon sx={{paddingRight: '10px'}} onClick={showSidebar} />
+                <Stack>
+                    <input 
+                        type="file"
+                        id="file"
+                        accept="image/*" 
+                        style={{ display: 'none' }}
+                        onChange={handleImageSubmit}
+                    /> 
+                    <label style={{paddingRight: '10px', paddingTop: '5px'}} htmlFor="file">
+                        <AttachFileIcon/>
+                    </label>
+                </Stack>
                 <TextareaAutosize
                 aria-label="empty textarea"
                 placeholder="Enter message here for the chatbot"
@@ -92,7 +151,8 @@ export const Textbar = ({ isSidebarShown, showSidebar, currentChatId, setCurrent
                 }}
                 maxLength={1000}
                 />
-                <SendIcon sx={{paddingLeft: '10px' }} onClick={handleSubmit}/>
+                <SendIcon sx={{paddingLeft: '10px'}} onClick={handleSubmit}/>
+            </Box>
         </Box>
     );
 };

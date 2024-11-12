@@ -16,8 +16,8 @@ function App() {
 
   return (
       <>
-        <Sidebar 
-          isSidebarShown={isSidebarShown} 
+        <Sidebar
+          isSidebarShown={isSidebarShown}
           showSidebar={() => setIsSidebarShown(!isSidebarShown)}
           userData={userData}
           setUserData={setUserData}
@@ -25,7 +25,7 @@ function App() {
           currentChatId={currentChatId}
           />
         <Chatbox 
-          isSidebarShown={isSidebarShown} 
+          isSidebarShown={isSidebarShown}
           showSidebar={() => setIsSidebarShown(!isSidebarShown)}
           chatData={chatData}
           userData={userData}
