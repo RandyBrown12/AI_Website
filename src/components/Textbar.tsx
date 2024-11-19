@@ -1,5 +1,5 @@
 import { TextareaAutosize, Box, Stack, IconButton } from "@mui/material";
-import AttachFileIcon from '@mui/icons-material/AttachFile'
+import AttachFileIcon from '@mui/icons-material/AttachFile';
 import SendIcon from '@mui/icons-material/Send';
 import HistoryIcon from '@mui/icons-material/History';
 import CloseIcon from '@mui/icons-material/Close';
@@ -11,8 +11,16 @@ export const Textbar = ({ isSidebarShown, showSidebar, currentChatId, setCurrent
 
     const inputRef = useRef<HTMLTextAreaElement>(null);
     const [preview, setPreview] = useState<string>('');
+    const [lock, setLock] = useState<boolean>(false);
 
     const handleSubmit = () => {
+        if(lock) {
+            window.alert("Please wait for the bot to respond before sending another message");
+            return;
+        }
+
+        setLock(true);
+
         const inputValue = inputRef.current?.value;
         if(!inputValue) return;
 
@@ -23,8 +31,9 @@ export const Textbar = ({ isSidebarShown, showSidebar, currentChatId, setCurrent
         });
 
         let newChatInformation = null;
+        let newUID = null;
         if(!currentChatId) {
-            let newUID = uuidv4();
+            newUID = uuidv4();
             newChatInformation = [...userData, {
                 id: newUID,
                 title: newUID,
@@ -53,12 +62,43 @@ export const Textbar = ({ isSidebarShown, showSidebar, currentChatId, setCurrent
         }
         localStorage.setItem('db', JSON.stringify(newChatInformation));
         setUserData(newChatInformation);
-        
+        chatBotResponse(newChatInformation, newUID ? newUID : currentChatId);
         inputRef.current!.value = '';
+    }
+
+    const chatBotResponse = async (currentChat: Data[], chatId: string) => {
+        try {
+            const response = await fetch('https://jsonplaceholder.typicode.com/posts/2');
+            if(!response.ok) {
+                throw new Error('Failed to fetch');
+            }
+
+            const responseData = await response.json();
+        
+            const newChatInformation = currentChat.map((data: Data) => {
+                if(data.id === chatId) {
+                    return {
+                        ...data,
+                        chat: [...data.chat, {
+                            sender: "Bot",
+                            message: responseData.body
+                        }]
+                    }
+                }
+                return data;
+            })
+            localStorage.setItem('db', JSON.stringify(newChatInformation));
+            setUserData(newChatInformation);
+        } catch (error) {
+            console.log(error);
+        } finally {
+            setLock(false);
+        }
     }
 
     const handleImageSubmit = (event : React.ChangeEvent<HTMLInputElement>) => {
         const file = event.target.files![0];
+        event.target.value = '';
         if (file) {
             setPreview(URL.createObjectURL(file));
         }

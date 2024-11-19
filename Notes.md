@@ -8,7 +8,8 @@
 
   * [X] Create a new chat:
   * [X] Create texts that change
-* [ ] Attach pictures to the prompt
+* [X] Attach picture to the prompt
+* [ ] Display pictues when sending chats.
 * [ ] Start configuring back-end
 
 ## Notes
