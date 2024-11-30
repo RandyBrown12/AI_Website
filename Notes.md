@@ -1,19 +1,26 @@
-* [X] Create a textbox with an attachment and a send file.
+# Notes
 
-  * [X] Configure attachment icon that reads files given.
-  * [X] Configure send icon that accepts given prompt.
-* [X] Create a history for users to access.
-* [X] Fill out text later.
-* [X] Create a sidebar.
+## How it works
 
-  * [X] Create a new chat:
-  * [X] Create texts that change
-* [X] Attach picture to the prompt
-* [ ] Display pictues when sending chats.
-* [ ] Start configuring back-end
+You will need both projects to simulate a front-end service & a back-end service.
 
-## Notes
+[AI_Server](https://github.com/RandyBrown12/AI_Website)\
+[AI_Client](https://github.com/RandyBrown12/AI_Server_Python)
 
-### Data
+## Running AI_Server
 
-* Data is stored in local storage which can be deleted if they want too.
+Before running AI_Server, create a .env file in the project with the following key-value pairs.
+* model_id = ""
+* local_model_path = ""
+* system_content = ""
+
+Run the command for development: 
+``` uvicorn app:app --reload ```
+
+## Running AI_Client
+
+Run the command for development:
+```npm run dev ```
+
+## Important Notes
+* Data is stored in clientside in localstorage.
