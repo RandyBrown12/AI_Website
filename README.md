@@ -23,4 +23,4 @@ Run the command for development:
 ```npm run dev ```
 
 ## Important Notes
-* Data is stored in clientside in localstorage.
+* Data is stored in client-side in localstorage.
