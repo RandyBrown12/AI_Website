@@ -44,7 +44,7 @@ export const Textbar = ({ isSidebarShown, showSidebar, currentChatId, setCurrent
                         message: inputRef.current!.value
                     }
                 ]
-                }]
+            }]
             setCurrentChatId(newUID);
         } else {
             newChatInformation = userData.map((data: Data) => {
