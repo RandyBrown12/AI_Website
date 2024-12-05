@@ -4,8 +4,8 @@
 
 You will need both projects to simulate a front-end service & a back-end service.
 
-[AI_Server](https://github.com/RandyBrown12/AI_Website)\
-[AI_Client](https://github.com/RandyBrown12/AI_Server_Python)
+[AI_Server](https://github.com/RandyBrown12/AI_Server_Python)\
+[AI_Client](https://github.com/RandyBrown12/AI_Website)
 
 ## Running AI_Server
 
