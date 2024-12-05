@@ -10,9 +10,11 @@ You will need both projects to simulate a front-end service & a back-end service
 ## Running AI_Server
 
 Before running AI_Server, create a .env file in the project with the following key-value pairs.
-* model_id = ""
-* local_model_path = ""
-* system_content = ""
+```
+model_id=""
+local_model_path=""
+system_content=""
+```
 
 Run the command for development: 
 ``` uvicorn app:app --reload ```
