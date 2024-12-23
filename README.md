@@ -1,4 +1,4 @@
-# Notes
+# AI_Website for UCO
 
 ## How it works
 
