@@ -1,7 +1,7 @@
 import { Box } from '@mui/material';
 import { Textbar } from './Textbar';
 import { ChatboxProps } from './interfaces';
-
+import '../App.css';
 
 const Chatbox = ({isSidebarShown, showSidebar, chatData, currentChatId, setCurrentChatId, setUserData, userData} : ChatboxProps) => {
 
@@ -21,15 +21,8 @@ const Chatbox = ({isSidebarShown, showSidebar, chatData, currentChatId, setCurre
                     padding: '10px',
                     flex: '1',
                 }}>
-                    <Box sx= {{
-                        backgroundColor: message.sender === "User" ? '#f0f0f0' : '#ffffff',
-                        borderRadius: '25px',
-                        padding: '16px',
-                        maxWidth: '60%',
-                        wordWrap: 'break-word',
-                        whiteSpace: 'pre-wrap',
-                    }}>
-                        {message.message} 
+                    <Box className={message.sender === "User" ? "chatbox-user" : "chatbox-bot"}>
+                        {message.message}
                     </Box>
                 </Box>
             ))}

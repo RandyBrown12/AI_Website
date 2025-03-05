@@ -1,4 +1,18 @@
-.button {
-  background-color: black;
-  
+.chatbox-bot {
+  display: inline-block;
+  font-family: 'Times New Roman', Times, serif;
+  background-color: transparent;
+  padding: 16px;
+  max-width: 60%;
+  word-wrap: 'break-word';
+}
+
+.chatbox-user {
+  font-family: 'Times New Roman', Times, serif;
+  background-color: #f0f0f0;
+  border-radius: 25px;
+  padding: 13px;
+  max-width: 60%;
+  word-wrap: 'break-word';
+  white-space: 'pre-wrap';
 }
