@@ -68,20 +68,25 @@ export const Textbar = ({ isSidebarShown, showSidebar, currentChatId, setCurrent
 
     const chatBotResponse = async (currentChat: Data[], chatId: string) => {
         try {
-            const response = await fetch('https://jsonplaceholder.typicode.com/posts/2');
+            const response = await fetch('http://127.0.0.1:8000', {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'text/plain'
+                },
+                body: inputRef.current!.value
+            });
             if(!response.ok) {
                 throw new Error('Failed to fetch');
             }
 
-            const responseData = await response.json();
-        
+            const responseData = await response.text();
             const newChatInformation = currentChat.map((data: Data) => {
                 if(data.id === chatId) {
                     return {
                         ...data,
                         chat: [...data.chat, {
                             sender: "Bot",
-                            message: responseData.body
+                            message: responseData
                         }]
                     }
                 }
